@@ -1,0 +1,92 @@
+:root {
+  --navy: #10203f;
+  --navy-2: #16294d;
+  --ice: #9fd3e8;
+  --ice-deep: #4f90ab;
+  --gold: #c9a257;
+  --paper: #faf9f6;
+  --ink: #1c1f26;
+  --muted: #6b7280;
+  --line: #e6e3dc;
+  --font-serif: Georgia, 'Iowan Old Style', 'Palatino Linotype', Palatino, 'Book Antiqua', serif;
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root { margin: 0; padding: 0; min-height: 100%; }
+
+body {
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+}
+
+h1, h2, h3, h4 { font-family: var(--font-serif); color: var(--navy); font-weight: 600; margin: 0; }
+p { margin: 0; color: #34394a; }
+a { color: inherit; }
+button { font-family: var(--font-sans); cursor: pointer; }
+
+.demo-banner {
+  background: var(--gold);
+  color: #2a1f0a;
+  text-align: center;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.3px;
+  padding: 8px 16px;
+}
+.demo-banner a { text-decoration: underline; color: inherit; }
+
+.wrap { max-width: 1180px; margin: 0 auto; padding: 0 32px; }
+
+/* Photo placeholder blocks: original CSS art standing in for licensed photography */
+.photo {
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(160deg, var(--tone1, #1a3a5c) 0%, var(--tone2, #4f90ab) 55%, var(--tone3, #cfe8f0) 100%);
+  display: flex;
+  align-items: flex-end;
+}
+.photo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 60% 40% at 20% 90%, rgba(255,255,255,0.18), transparent 60%),
+    radial-gradient(ellipse 50% 30% at 80% 10%, rgba(255,255,255,0.12), transparent 60%);
+}
+.photo-tag {
+  position: relative;
+  z-index: 1;
+  font-size: 11px;
+  letter-spacing: 0.8px;
+  color: rgba(255,255,255,0.85);
+  background: rgba(16,32,63,0.35);
+  padding: 4px 9px;
+  border-radius: 3px;
+  margin: 12px;
+  backdrop-filter: blur(2px);
+}
+
+.carousel-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.6);
+  background: rgba(16,32,63,0.35);
+  color: #fff;
+  font-size: 20px;
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.carousel-btn:hover { background: rgba(16,32,63,0.6); }
+
+@keyframes chevronBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+.chevron-bounce { animation: chevronBounce 1.6s ease-in-out infinite; }
