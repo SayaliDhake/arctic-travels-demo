@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
  */
 export default function BookingCTA({
   label = "Book Here",
-  variant = "primary", // "primary" | "outline"
+  variant = "primary", // "primary" | "outline" | "mono-solid" | "mono-outline"
   size = "md", // "sm" | "md" | "lg"
   to = "/booking",
 }) {
@@ -19,18 +19,16 @@ export default function BookingCTA({
   const variants = {
     primary: { background: "var(--gold)", color: "#2a1f0a", border: "1px solid var(--gold)" },
     outline: { background: "transparent", color: "#fff", border: "1px solid rgba(255,255,255,0.7)" },
+    "mono-solid": { background: "var(--mono-ink)", color: "#fff", border: "1px solid var(--mono-ink)" },
+    "mono-outline": { background: "#fff", color: "var(--mono-ink)", border: "1px solid var(--mono-ink)" },
   };
 
   return (
     <Link
       to={to}
+      className="mono-btn"
       style={{
-        display: "inline-block",
         fontWeight: 700,
-        letterSpacing: "0.6px",
-        textTransform: "uppercase",
-        textDecoration: "none",
-        borderRadius: 3,
         ...sizes[size],
         ...variants[variant],
       }}

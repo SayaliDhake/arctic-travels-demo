@@ -59,3 +59,11 @@ export const travelWindows = [
   { id: "w1", range: "Dec 14 — Dec 21", label: "Winter Solstice & Aurora Peak" },
   { id: "w2", range: "Jan 05 — Jan 12", label: "Deep Freeze Experience" },
 ];
+
+// Short-form quotes for the Landing page review strip (matches the
+// wireframe export's single-line format).
+export const landingReviews = [
+  { quote: "Best ski holiday of my life — Zermatt was incredible.", name: "James R.", rating: 5 },
+  { quote: "Every detail handled before I thought to ask.", name: "Priya N.", rating: 5 },
+  { quote: "The kind of trip you plan a year for and it still surprises you.", name: "Marcus T.", rating: 5 },
+];

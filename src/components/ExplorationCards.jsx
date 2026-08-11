@@ -1,93 +1,68 @@
-import { Link } from "react-router-dom";
-import { regions, resorts, experiencePreviews } from "../data/content";
+import Placeholder from "./Placeholder";
 
-function Tile({ tone1, tone2, tone3, tag, height = 220, children }) {
+function Label({ children }) {
   return (
-    <div className="photo" style={{ "--tone1": tone1, "--tone2": tone2, "--tone3": tone3, height, borderRadius: 6 }}>
-      {tag && <span className="photo-tag">{tag}</span>}
+    <div style={{ fontSize: 10.5, letterSpacing: "1px", color: "#8a8a8a", textTransform: "uppercase", marginBottom: 8 }}>
       {children}
     </div>
   );
 }
 
 export default function ExplorationCards() {
-  const resort = resorts[0];
-
   return (
-    <>
-      {/* Explore Regions */}
-      <section style={{ padding: "64px 0 32px" }}>
-        <div className="wrap">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "baseline", marginBottom: 20 }}>
-            <div>
-              <div style={{ fontSize: 11.5, letterSpacing: "2px", color: "var(--ice-deep)", fontWeight: 600, marginBottom: 6 }}>
-                DESTINATIONS
-              </div>
-              <h2 style={{ fontSize: 26 }}>Explore Regions</h2>
-            </div>
-            <span style={{ fontSize: 13, fontWeight: 600, textDecoration: "underline", cursor: "pointer" }}>
-              View all locations
-            </span>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 16 }}>
-            {regions.map((r) => (
-              <Tile key={r.name} tone1={r.tone1} tone2={r.tone2} tone3={r.tone3} tag={`${r.name}, ${r.country}`} height={260} />
-            ))}
-          </div>
+    <section className="wrap" style={{ padding: "56px 32px 12px" }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", marginBottom: 24 }}>
+        <div>
+          <Label>Exploration</Label>
+          <h2 className="mono-heading" style={{ fontSize: 30 }}>Discover the Uncharted</h2>
         </div>
-      </section>
+        <span style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: "0.5px", textDecoration: "underline", cursor: "pointer" }}>
+          View all destinations
+        </span>
+      </div>
 
-      {/* Curated Resorts */}
-      <section style={{ padding: "32px 0" }}>
-        <div className="wrap" style={{ display: "grid", gridTemplateColumns: "1fr 1.1fr", gap: 32, alignItems: "center" }}>
-          <Tile tone1={resort.tone1} tone2={resort.tone2} tone3={resort.tone3} height={300} />
-          <div>
-            <div style={{ fontSize: 11.5, letterSpacing: "2px", color: "var(--ice-deep)", fontWeight: 600, marginBottom: 6 }}>
-              ACCOMMODATION
-            </div>
-            <h2 style={{ fontSize: 24, marginBottom: 10 }}>Curated Arctic Resorts</h2>
-            <p style={{ fontSize: 14.5, marginBottom: 16 }}>
-              From glass-roofed suites to private expedition lodges, our portfolio includes only the most
-              exceptional architectural wonders in the high north.
-            </p>
-            <Link
-              to={`/resort/${resort.slug}`}
-              style={{
-                display: "inline-block",
-                fontSize: 13.5,
-                fontWeight: 600,
-                color: "var(--navy)",
-                textDecoration: "none",
-                borderBottom: "1px solid var(--navy)",
-                paddingBottom: 2,
-              }}
-            >
-              {resort.name} →
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      {/* Unforgettable Experiences */}
-      <section style={{ padding: "32px 0 12px" }}>
-        <div className="wrap">
-          <h2 style={{ fontSize: 24, marginBottom: 6, textAlign: "center" }}>Unforgettable Experiences</h2>
-          <p style={{ textAlign: "center", color: "var(--muted)", fontSize: 14, marginBottom: 26 }}>
-            The arctic is a stage. Here are your tickets.
+      <div style={{ display: "grid", gridTemplateColumns: "1.1fr 1fr", gap: 18 }}>
+        {/* Regions — big card */}
+        <div style={{ background: "var(--mono-bg-soft)", padding: 24 }}>
+          <Label>Regions</Label>
+          <h3 className="mono-heading" style={{ fontSize: 22, marginBottom: 16 }}>Scandinavian Fjords</h3>
+          <Placeholder label="Curated visual" height={340} />
+          <p style={{ fontSize: 13, color: "var(--mono-muted)", marginTop: 14 }}>
+            Explore deep-cut glacial valleys and towering granite cliffs.
           </p>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-            {experiencePreviews.map((e) => (
-              <div key={e.name}>
-                <Tile tone1={e.tone1} tone2={e.tone2} tone3={e.tone3} height={170} />
-                <h3 style={{ fontSize: 15.5, marginTop: 10 }}>{e.name}</h3>
-                <p style={{ fontSize: 12.5, color: "var(--muted)", textTransform: "uppercase", letterSpacing: "0.4px" }}>
-                  {e.meta}
-                </p>
+        </div>
+
+        {/* Right column: Lodging + Activities/Resorts */}
+        <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
+          <div style={{ background: "var(--mono-bg-soft)", padding: 24, display: "flex", gap: 20, alignItems: "flex-start" }}>
+            <div style={{ flex: 1 }}>
+              <Label>Lodging</Label>
+              <h3 className="mono-heading" style={{ fontSize: 20, marginBottom: 8 }}>The Ice Pavilion</h3>
+              <p style={{ fontSize: 13, color: "var(--mono-muted)" }}>Minimalist retreats at the edge of the world.</p>
+            </div>
+            <Placeholder label="Visual" height={140} style={{ width: 110, flex: "none" }} />
+          </div>
+
+          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: 18 }}>
+            <div style={{ background: "var(--mono-bg-soft)", padding: 20, minHeight: 150, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <Label>Activities</Label>
+                <h3 className="mono-heading" style={{ fontSize: 17 }}>Tidal Glaciology</h3>
               </div>
-            ))}
+              <span style={{ alignSelf: "flex-end", fontSize: 16 }}>→</span>
+            </div>
+            <div style={{ background: "var(--mono-ink)", color: "#fff", padding: 20, minHeight: 150, display: "flex", flexDirection: "column", justifyContent: "space-between" }}>
+              <div>
+                <div style={{ fontSize: 10.5, letterSpacing: "1px", color: "rgba(255,255,255,0.6)", textTransform: "uppercase", marginBottom: 8 }}>
+                  Resorts
+                </div>
+                <h3 style={{ fontSize: 17, color: "#fff", fontWeight: 700 }}>Nordic Pass Holders</h3>
+              </div>
+              <span style={{ alignSelf: "flex-end", fontSize: 16 }}>★</span>
+            </div>
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

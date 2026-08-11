@@ -1,88 +1,39 @@
 import { useState } from "react";
-import { regions } from "../data/content";
+import Placeholder from "./Placeholder";
 
-export default function HeroSection({ onExploreClick }) {
+const slides = ["Svalbard, Norway", "Lapland, Finland"];
+
+export default function HeroSection() {
   const [slide, setSlide] = useState(0);
-  const active = regions[slide];
-
-  const next = () => setSlide((s) => (s + 1) % regions.length);
-  const prev = () => setSlide((s) => (s - 1 + regions.length) % regions.length);
+  const next = () => setSlide((s) => (s + 1) % slides.length);
+  const prev = () => setSlide((s) => (s - 1 + slides.length) % slides.length);
 
   return (
-    <section
-      className="photo"
-      style={{
-        "--tone1": active.tone1,
-        "--tone2": active.tone2,
-        "--tone3": active.tone3,
-        height: "88vh",
-        minHeight: 560,
-        alignItems: "stretch",
-      }}
-    >
+    <section className="wrap" style={{ padding: "48px 32px 0" }}>
       <div
         style={{
-          position: "relative",
-          zIndex: 1,
-          width: "100%",
           display: "flex",
-          flexDirection: "column",
-          justifyContent: "flex-end",
+          justifyContent: "space-between",
+          alignItems: "flex-start",
+          gap: 40,
+          flexWrap: "wrap",
+          marginBottom: 32,
         }}
       >
-        <div className="wrap" style={{ paddingBottom: 56, width: "100%" }}>
-          <div
-            style={{
-              background: "rgba(10,20,40,0.55)",
-              backdropFilter: "blur(3px)",
-              color: "#fff",
-              maxWidth: 420,
-              padding: "28px 30px",
-              borderRadius: 4,
-            }}
-          >
-            <h1 style={{ color: "#fff", fontSize: 32, marginBottom: 8 }}>
-              Plan the perfect winter trip
-            </h1>
-            <p style={{ color: "#dfe6ef", fontSize: 14.5, marginBottom: 18 }}>
-              Curated expeditions to the ends of the earth.
-            </p>
-            <button
-              onClick={onExploreClick}
-              style={{
-                background: "transparent",
-                border: "1px solid rgba(255,255,255,0.75)",
-                color: "#fff",
-                padding: "11px 20px",
-                fontSize: 12,
-                letterSpacing: "1.2px",
-                textTransform: "uppercase",
-                fontWeight: 600,
-                borderRadius: 2,
-              }}
-            >
-              Start your journey
-            </button>
-          </div>
-          <p className="photo-tag" style={{ margin: "18px 0 0", display: "inline-block" }}>
-            {active.name}, {active.country}
-          </p>
-        </div>
+        <h1 className="mono-heading" style={{ fontSize: 46, lineHeight: 1.05, maxWidth: 480, margin: 0 }}>
+          Plan the perfect winter trip
+        </h1>
+        <p style={{ maxWidth: 300, fontSize: 14.5, color: "var(--mono-muted)", marginTop: 8 }}>
+          Curated experiences in the world's most pristine arctic environments. From private lodges to
+          exclusive glacial passes.
+        </p>
+      </div>
 
-        <div
-          style={{
-            position: "absolute",
-            top: "50%",
-            left: 0,
-            right: 0,
-            display: "flex",
-            justifyContent: "space-between",
-            transform: "translateY(-50%)",
-            padding: "0 24px",
-          }}
-        >
-          <button aria-label="Previous" onClick={prev} className="carousel-btn">‹</button>
-          <button aria-label="Next" onClick={next} className="carousel-btn">›</button>
+      <div style={{ position: "relative" }}>
+        <Placeholder label={`Curated visual — ${slides[slide]}`} height={420} />
+        <div style={{ position: "absolute", bottom: 16, right: 16, display: "flex", gap: 8 }}>
+          <button className="circle-btn" onClick={prev} aria-label="Previous">←</button>
+          <button className="circle-btn" onClick={next} aria-label="Next">→</button>
         </div>
       </div>
     </section>
