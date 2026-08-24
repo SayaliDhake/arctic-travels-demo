@@ -1,0 +1,62 @@
+/* Shared nav bar — same markup/styling on every page (LandingV2,
+   ResortDetailV2, Booking) so the nav UX doesn't drift page to page.
+   Self-contained (its own font import + tokens) so it renders identically
+   regardless of which page's stylesheet is loaded alongside it. */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500&family=Noto+Serif:wght@300;400&display=swap');
+
+.site-nav {
+  --site-nav-navy: #1b2a4a;
+  --site-nav-navy-hover: #243960;
+
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  backdrop-filter: blur(12px);
+  background: rgba(246, 250, 254, 0.7);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24px 48px;
+  border-bottom: 1px solid rgba(197, 198, 207, 0.15);
+  font-family: 'Manrope', sans-serif;
+}
+
+.site-nav-brand {
+  color: var(--site-nav-navy);
+  font-size: 20px;
+  letter-spacing: 4px;
+  font-weight: 300;
+  font-family: 'Noto Serif', serif;
+  text-decoration: none;
+}
+
+.site-nav-links { display: flex; align-items: center; gap: 40px; }
+
+.site-nav-link {
+  color: rgba(27, 42, 74, 0.7);
+  font-size: 16px;
+  letter-spacing: 0.4px;
+  font-family: 'Noto Serif', serif;
+  text-decoration: none;
+  transition: color 0.15s ease;
+}
+.site-nav-link:hover,
+.site-nav-link.active { color: var(--site-nav-navy); }
+
+.site-nav-cta {
+  background: var(--site-nav-navy);
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 1.4px;
+  padding: 10px 24px;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background 0.15s ease;
+}
+.site-nav-cta:hover { background: var(--site-nav-navy-hover); }
+
+@media (max-width: 900px) {
+  .site-nav-links { display: none; }
+}
