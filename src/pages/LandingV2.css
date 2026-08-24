@@ -1,0 +1,105 @@
+/* Styles scoped to LandingV2 — a higher-fidelity Figma export of the
+   landing page (navy/serif, real photography). Kept in its own file so
+   it doesn't touch index.css or the mono/navy tokens used elsewhere. */
+
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;700&family=Noto+Serif:wght@300;400&display=swap');
+
+.lv2 {
+  --lv2-navy: #1b2a4a;
+  --lv2-navy-deep: #041534;
+  --lv2-bg: #f6fafe;
+  --lv2-bg-soft: #f0f4f8;
+  --lv2-muted: #45464e;
+  --lv2-line: #c5c6cf;
+  --lv2-gold: #e2c375;
+  --lv2-gold-deep: #725c17;
+  --font-manrope: 'Manrope', sans-serif;
+  --font-noto-serif: 'Noto Serif', serif;
+
+  background: var(--lv2-bg);
+  position: relative;
+  min-height: 100vh;
+  font-family: var(--font-manrope);
+}
+
+.lv2 h1, .lv2 h2, .lv2 h3, .lv2 p, .lv2 span { color: inherit; margin: 0; }
+.lv2 a { text-decoration: none; }
+.lv2 button { border: none; cursor: pointer; font-family: var(--font-manrope); }
+
+/* Hero */
+.lv2-hero { position: relative; height: 860px; display: flex; align-items: center; overflow: hidden; }
+.lv2-hero-img { position: absolute; inset: 0; width: 100%; height: 138%; top: -19%; left: 0; object-fit: cover; }
+.lv2-hero-scrim { position: absolute; inset: 0; background: rgba(4, 21, 52, 0.2); }
+.lv2-hero-panel {
+  backdrop-filter: blur(6px);
+  background: rgba(27, 42, 74, 0.8);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  align-items: flex-start;
+  max-width: 672px;
+  padding: 48px;
+}
+.lv2-btn-outline {
+  background: transparent;
+  border: 2px solid #fff;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 2.8px;
+  padding: 14px 34px;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+.lv2-btn-outline:hover { background: #fff; color: var(--lv2-navy); }
+
+/* Region / experience photo tiles */
+.lv2-photo-tile { position: relative; overflow: hidden; }
+.lv2-photo-tile img {
+  position: absolute;
+  max-width: none;
+  object-fit: cover;
+}
+.lv2-photo-scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(4, 21, 52, 0.6), transparent);
+}
+
+/* Resort list row */
+.lv2-resort-row { display: flex; align-items: center; gap: 16px; padding-bottom: 16px; border-bottom: 1px solid var(--lv2-line); }
+
+/* Links / buttons with hover */
+.lv2-link-underline { color: #171c1f; font-size: 14px; font-weight: 700; letter-spacing: 1.4px; border-bottom: 1px solid var(--lv2-navy-deep); padding-bottom: 4px; transition: opacity 0.15s ease; }
+.lv2-link-underline:hover { opacity: 0.7; }
+
+.lv2-btn-cream { display: inline-flex; align-items: center; justify-content: center; background: #e8eaef; color: var(--lv2-navy-deep); font-size: 12px; font-weight: 700; letter-spacing: 2.4px; padding: 0 24px; height: 44px; border-radius: 8px; transition: background 0.15s ease; }
+.lv2-btn-cream:hover { background: #fff; }
+
+.lv2-btn-outline-navy { display: inline-flex; align-items: center; justify-content: center; background: transparent; border: 1.5px solid var(--lv2-navy); color: #fff; font-size: 12px; font-weight: 700; letter-spacing: 2.4px; padding: 0 24px; height: 44px; border-radius: 8px; transition: border-color 0.15s ease; }
+.lv2-btn-outline-navy:hover { border-color: #fff; }
+
+.lv2-fab {
+  position: fixed;
+  bottom: 32px;
+  right: 32px;
+  z-index: 50;
+  background: var(--lv2-navy-deep);
+  width: 56px;
+  height: 56px;
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0px 25px 50px -12px rgba(0, 0, 0, 0.25);
+  transition: background 0.15s ease;
+}
+.lv2-fab:hover { background: #0d2456; }
+
+/* Responsive: collapse the two- and three-column layouts on narrow viewports */
+@media (max-width: 900px) {
+  .lv2-hero { height: 620px; }
+  .lv2-regions-grid { grid-template-columns: 1fr !important; height: auto !important; }
+  .lv2-regions-grid > * { height: 340px; }
+  .lv2-resorts-grid { grid-template-columns: 1fr !important; }
+  .lv2-experiences-grid { grid-template-columns: 1fr !important; }
+}

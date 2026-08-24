@@ -20,55 +20,62 @@ properties in `src/index.css` — no CSS framework, no component library.
 `vite.config.js` sets `base: './'` (relative asset paths) so the build works whether it's
 hosted at a domain root or a GitHub Pages project path like `username.github.io/repo-name/`.
 
-## Important: two visual design systems coexist in this codebase
+## The site now has exactly three pages: LandingV2, ResortDetailV2, Booking
 
-This is not an inconsistency to "fix" — it reflects where each screen actually is in the
-real design process, and the case study is explicit about that.
+Earlier in this project's history there was a lot more surface area — a mono/wireframe
+Landing page, a pre-Figma-export `ResortDetail.jsx`, a `BookingCTA` component, etc. All of
+that has been deleted. The entire routed app is now:
 
-- **Landing page** (`src/pages/Landing.jsx`) uses the **mono / wireframe** variant —
-  black/white/gray, bold sans headings (`.mono-heading`), flat gray `<Placeholder />`
-  blocks instead of photography. This matches the client's wireframe-stage Figma export
-  (PDF reference the designer supplied).
-- **Resort Detail** and **Booking** pages use the **navy / serif "final"** variant — navy
-  (`var(--navy)`), serif headings, gold accents. This matches the higher-fidelity final
-  screens from Figma.
+- **`/`** → `src/pages/LandingV2.jsx`
+- **`/resort-v2`** → `src/pages/ResortDetailV2.jsx`
+- **`/booking`** → `src/pages/Booking.jsx`
 
-Shared components take a `variant` prop to switch between the two:
-- `<Nav variant="navy" | "mono" />`
-- `<Footer variant="navy" | "mono" />`
-- `<BookingCTA variant="primary" | "outline" | "mono-solid" | "mono-outline" />`
+All three use the same navy/serif design system — navy, serif headings, gold accents, real
+photography — and all three share the exact same nav bar and footer via `<SiteNav />` and
+`<SiteFooter />` (`src/components/SiteNav.jsx`/`.css` and `SiteFooter.jsx`/`.css`). This was
+a deliberate consistency fix: the three pages used to each roll their own nav/footer (or,
+for `Booking`, the old `Nav.jsx`/`Footer.jsx`), and they'd drifted slightly out of sync
+(different padding, alpha values, link copy, even a dead `href="#"` link or two) until
+unified. **Don't fork the nav or footer again** — if a page needs a change there, change
+`SiteNav`/`SiteFooter`, not a per-page copy. Both `SiteNav` and `SiteFooter` are
+self-contained (own font `@import`, own CSS tokens) so they render identically no matter
+which page's stylesheet is loaded alongside them.
 
-**Do not silently unify these two styles.** If asked to redesign one page, keep the other
-two untouched unless explicitly told to change them too — they're deliberately at different
-fidelity because that's genuinely true of the underlying Figma file.
+**Deleted along the way** (don't recreate these from habit or old memory of the repo):
+mono/wireframe Landing system (`Landing.jsx`, `HeroSection.jsx`, `ReviewStrip.jsx`,
+`ScrollIndicator.jsx`, `ExplorationCards.jsx`, `Placeholder.jsx`), the pre-Figma-export
+`ResortDetail.jsx` (was at `/resort/:slug`), `BookingCTA.jsx` (was only used by the deleted
+`ResortDetail.jsx`), and the old shared `Nav.jsx`/`Footer.jsx` (replaced by
+`SiteNav.jsx`/`SiteFooter.jsx`, neither of which has a `variant` prop — they only ever
+render the navy/serif style, since the mono variant's only caller was the already-deleted
+mono Landing page).
 
-## Component architecture (matches what the case study documents)
+## Component architecture
 
 ```
-<Landing />          <ResortDetail />         <Booking />
-  <Nav variant=mono>    <Nav variant=navy>       <Nav variant=navy>
-  <HeroSection>         ...resort content...     ...booking form...
-  <ReviewStrip>         <BookingCTA>              <Footer variant=navy>
-  <ScrollIndicator>      <Footer variant=navy>
-  <ExplorationCards>
-  <BookingCTA>
-  <Footer variant=mono>
+<LandingV2 />  (route "/")        <ResortDetailV2 />  (route "/resort-v2")   <Booking />
+  <SiteNav />                       <SiteNav />                                <SiteNav />
+  ...own content JSX...             ...own content JSX...                      ...booking form...
+  <SiteFooter />                    <SiteFooter />                             <SiteFooter />
 ```
 
 `src/data/content.js` holds all mock content (reviews, resorts, regions, travel windows).
-`landingReviews` is a short one-line-quote format for the mono Landing review strip;
-`reviews` is the longer-form quote used elsewhere — don't merge these, they're different
-copy lengths on purpose.
+`ResortDetailV2` reads resort copy/amenities from `resorts[0]` in this file rather than
+duplicating it; `Booking` reads the same `resorts[0]` plus `travelWindows`.
 
 ## Hard constraints — do not violate these without asking
 
 - **No real backend, no real payment processing.** The booking flow (`src/pages/Booking.jsx`)
   ends in a mock confirmation screen, clearly labeled "DEMO — NO REAL PAYMENT IS PROCESSED."
   This is a portfolio piece, not a product — keep it that way.
-- **No licensed/scraped stock photography.** `<Placeholder />` (mono) and the CSS-gradient
-  `.photo` blocks (navy variant) stand in for real photos because rights to the original
-  Figma reference photography were never confirmed. If real images are added later, they
-  need to be ones the user actually has rights to use in a public GitHub repo.
+- **No licensed/scraped stock photography.** The CSS-gradient `.photo` block on
+  `Booking.jsx` (the small resort thumbnail in the order summary) stands in for a real photo
+  because rights to the original Figma reference photography were never confirmed. If a real
+  image is added later, it needs to be one the user actually has rights to use in a public
+  GitHub repo. Note: `LandingV2`/`ResortDetailV2` (`src/assets/landing-v2/`,
+  `src/assets/resort-v2/`) already use real photos pulled from a Figma Make export the user
+  supplied — rights to those specific images have not been independently confirmed by
+  Claude in this repo's history, so don't assume they're cleared without asking the user.
 - **Node version:** requires Node 20+ (Vite 8 uses `util.styleText`, unavailable before
   Node 20.12). The user hit this exact issue once already — if `npm run dev` fails with a
   `styleText` / `node:util` error, that's the cause.

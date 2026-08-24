@@ -1,6 +1,6 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
-import Landing from "./pages/Landing";
-import ResortDetail from "./pages/ResortDetail";
+import LandingV2 from "./pages/LandingV2";
+import ResortDetailV2 from "./pages/ResortDetailV2";
 import Booking from "./pages/Booking";
 
 export default function App() {
@@ -11,8 +11,8 @@ export default function App() {
         <a href="https://www.connectwithsayali.com/arctic-travels/index.html">View the case study →</a>
       </div>
       <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/resort/:slug" element={<ResortDetail />} />
+        <Route path="/" element={<LandingV2 />} />
+        <Route path="/resort-v2" element={<ResortDetailV2 />} />
         <Route path="/booking" element={<Booking />} />
       </Routes>
     </HashRouter>

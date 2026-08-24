@@ -1,6 +1,6 @@
 import { useState } from "react";
-import Nav from "../components/Nav";
-import Footer from "../components/Footer";
+import SiteNav from "../components/SiteNav";
+import SiteFooter from "../components/SiteFooter";
 import { resorts, travelWindows } from "../data/content";
 
 export default function Booking() {
@@ -16,7 +16,7 @@ export default function Booking() {
   if (confirmed) {
     return (
       <div>
-        <Nav />
+        <SiteNav />
         <div className="wrap" style={{ padding: "90px 32px", textAlign: "center", maxWidth: 520 }}>
           <div style={{ fontSize: 40, marginBottom: 12 }}>✓</div>
           <h1 style={{ fontSize: 26, marginBottom: 10 }}>Request received</h1>
@@ -32,14 +32,14 @@ export default function Booking() {
             Back to booking
           </button>
         </div>
-        <Footer />
+        <SiteFooter />
       </div>
     );
   }
 
   return (
     <div>
-      <Nav />
+      <SiteNav />
       <div className="wrap" style={{ padding: "48px 32px 80px" }}>
         <p style={{ fontSize: 11, letterSpacing: "1px", color: "var(--gold)", fontWeight: 700, marginBottom: 20 }}>
           DEMO — NO REAL PAYMENT IS PROCESSED
@@ -141,7 +141,7 @@ export default function Booking() {
           </aside>
         </div>
       </div>
-      <Footer />
+      <SiteFooter />
     </div>
   );
 }
